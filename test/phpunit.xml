@@ -1,0 +1,7 @@
+<phpunit bootstrap="./Bootstrap.php" colors="true">
+  <testsuites>
+    <testsuite name="SocialAuth Module Tests">
+      <directory>./SocialAuthTest</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

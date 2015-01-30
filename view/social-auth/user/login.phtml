@@ -1,0 +1,13 @@
+<?php
+$socialSignIn = true;
+foreach ($this->options->getEnabledProviders() as $provider) {
+    if ($socialSignIn) {
+        echo '<h1>Social Sign In</h1>';
+        $socialSignIn = false;
+    }
+    echo '<div class="row"><div class="col-md-12">'.$this->socialSignInButton($provider, $this->redirect).'</div></div>';
+}
+if ($this->options->getSocialLoginOnly() == false) {
+    echo $this->zfcUserLogin;
+}
+
