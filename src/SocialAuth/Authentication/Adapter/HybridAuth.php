@@ -369,7 +369,7 @@ class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface
             $employer->setEmail($fbArray['email']);   
             
             //Set the user role "candidate" for users.
-            $userRole       = $entityManager->getRepository('FMCUser\Entity\Role')->findOneBy(array('roleId' => $userRole));  
+            $userRole       = $entityManager->getRepository('User\Entity\Role')->findOneBy(array('roleId' => $userRole));  
             //give the user the 'user' role
             $localUser->addRole($userRole); 
 
@@ -389,7 +389,7 @@ class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface
             $localUser->addProfile($userProfile);    
 
             //Set the user role "candidate" for users.
-            $userRole       = $entityManager->getRepository('FMCUser\Entity\Role')->findOneBy(array('roleId' => 'candidate'));
+            $userRole       = $entityManager->getRepository('User\Entity\Role')->findOneBy(array('roleId' => 'candidate'));
             //give the user the 'user' role
             $localUser->addRole($userRole); 
            
@@ -527,10 +527,8 @@ class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface
         $sm             = $this->getServiceManager();
         $entityManager  = $sm->get('Doctrine\ORM\EntityManager');
         
-        //$userRole       = $entityManager->getRepository('FMCUser\Entity\Role')->findOneBy(array('roleId' => 'user'));
-
         //Set the user role "candidate" for users.
-        $userRole       = $entityManager->getRepository('FMCUser\Entity\Role')->findOneBy(array('roleId' => 'candidate'));
+        $userRole       = $entityManager->getRepository('User\Entity\Role')->findOneBy(array('roleId' => 'candidate'));
 
         $mapper = $this->getZfcUserMapper();
         if (false != ($localUser = $mapper->findByEmail($userProfile->emailVerified))) {
