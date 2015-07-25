@@ -345,6 +345,7 @@ class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface
         $localUser = $this->instantiateLocalUser();
         $localUser->setEmail($userProfile->emailVerified)
             ->setDisplayName($userProfile->displayName)
+            ->setUserName($userProfile->emailVerified)
             ->setPassword(__FUNCTION__);
 
         
@@ -385,7 +386,9 @@ class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface
             $userProfile->setEmail($fbArray['email']);            
             $userProfile->setProfile($fbArray['aboutMe']);
             $userProfile->setLinkedinPhotourl($fbArray['photoURL']);
-
+            $genPhotoName = $fbArray['identifier'].".jpg";
+            $userProfile->setProfilePhoto("/img/profile_photos/".$genPhotoName);
+            
             $localUser->addProfile($userProfile);    
 
             //Set the user role "candidate" for users.
@@ -466,7 +469,7 @@ class HybridAuth extends AbstractAdapter implements ServiceManagerAwareInterface
 
             if($fbArray['photoURL']){
                 //COPYING LINKEDIN PROFILE IMAGE TO PROJECT IMAGE DIRECTORY
-                copy($fbArray['photoURL'],"public/img/profile_photos/".$userProfile->getId()."_linkedin.jpg");            
+                copy($fbArray['photoURL'],"public/img/profile_photos/".$genPhotoName);            
             }
         }
         unset($_SESSION['user_role']);
